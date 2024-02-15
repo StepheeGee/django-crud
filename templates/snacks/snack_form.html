@@ -1,14 +1,17 @@
 <!-- templates/snacks/snack_form.html -->
 {% extends "base.html" %}
 
-{% block title %}Create/Update Snack{% endblock %}
+
 
 {% block content %}
-  <h1>Create/Update Snack</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
-  <a href="{% url 'snack_list' %}">Back to Snack List</a>
+
+
+    <h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Snack</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="w3-button w3-teal">Save</button>
+    </form>
+ 
 {% endblock %}
+

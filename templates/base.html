@@ -1,25 +1,82 @@
-<!-- templates/base.html -->
+{% comment %} templates/base.html {% endcomment %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Snack Tracker{% endblock %}</title>
+  <title>Stephie's Snacks</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'src/output.css' %}">
 </head>
-<body>
-  <header>
-    <h1>Welcome to Snack Tracker</h1>
-    <nav>
-      <a href="{% url 'snack_list' %}">Snack List</a>
-    </nav>
+
+<body class="bg-gray-300">
+  <header class="bg-teal-500 text-white py-4">
+    <div class="container mx-auto">
+      <h1 class="text-2xl font-semibold">Stephie's Snacks</h1>
+    </div>
   </header>
-  <main>
-    {% block content %}{% endblock %}
+
+  <main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-lg">
+    <nav class="mb-8">
+      <ul class="flex space-x-4">
+        <li>
+          <a href="{% url 'snacks:snack_list' %}" class="text-teal-500 hover:text-teal-700">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'snacks:snack_create' %}" class="text-teal-500 hover:text-teal-700">Create Snack</a>
+        </li>
+        <li>
+          <a href="{% url 'snacks:snack_list' %}" class="text-teal-500 hover:text-teal-700">Snack List</a>
+        </li>
+        <li>
+          <a href="{% url 'snacks:snack_detail' pk=1 %}" class="text-teal-500 hover:text-teal-700">Snack Detail</a>
+        </li>
+      </ul>
+    </nav>
+
+    <section>
+      {% block content %}
+    
+        <table class="min-w-full table-auto">
+          <thead>
+            <tr>
+              <th class="border px-4 py-2">ID</th>
+              <th class="border px-4 py-2">Name</th>
+              <th class="border px-4 py-2">Description</th>
+              <th class="border px-4 py-2">Price</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through your snack data to populate the table rows -->
+            {% for snack in snacks %}
+              <tr>
+                <td class="border px-4 py-2">{{ snack.id }}</td>
+                <td class="border px-4 py-2">{{ snack.name }}</td>
+                <td class="border px-4 py-2">{{ snack.description }}</td>
+                <td class="border px-4 py-2">{{ snack.price }}</td>
+                <!-- Add more table cells if needed -->
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endblock content %}
+    </section>
   </main>
-  <footer>
-    &copy; 2024 Snack Tracker. All rights reserved.
+
+  <footer class="mt-8 bg-gray-200 py-4">
+    <div class="container mx-auto">
+      <span class="text-sm text-gray-500 sm:text-center">© 2024 <a href="https://snacktracker.com/" class="hover:underline text-teal-500 hover:text-teal-700">Snack Tracker™</a>. All Rights Reserved.</span>
+    </div>
   </footer>
+
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script>
 </body>
+
 </html>
