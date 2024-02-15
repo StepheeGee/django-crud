@@ -1,5 +1,5 @@
 
-# Stephie's Snacks (Lab 27)
+# Stephie's Snacks (Lab 28)
 
 Stephie's Snacks is a Django web application for managing snacks. (2.14.24)
 
